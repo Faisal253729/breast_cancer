@@ -1,4 +1,37 @@
-git mv app.py streamlit_app.py
-git add .
-git commit -m "Rename app.py to streamlit_app.py for Streamlit"
-git push
+import streamlit as st
+import pandas as pd
+import joblib
+from tensorflow.keras.models import load_model
+from sklearn.datasets import load_breast_cancer
+
+# Load model and scaler
+model = load_model("ann_model.h5")
+scaler = joblib.load("scaler.save")
+
+# App title
+st.title("Breast Cancer Prediction using ANN")
+st.write("Predict whether a tumor is Benign or Malignant based on input features.")
+
+# Sidebar input
+st.sidebar.header("Input Features")
+data = load_breast_cancer()
+feature_names = data.feature_names
+
+user_input = {}
+for i, feature in enumerate(feature_names):
+    min_val = float(data.data[:, i].min())
+    max_val = float(data.data[:, i].max())
+    mean_val = float(data.data[:, i].mean())
+    user_input[feature] = st.sidebar.slider(feature, min_val, max_val, mean_val)
+
+input_df = pd.DataFrame(user_input, index=[0])
+input_scaled = scaler.transform(input_df)
+
+# Prediction
+prediction_prob = model.predict(input_scaled)[0][0]
+prediction = "Benign" if prediction_prob > 0.5 else "Malignant"
+
+# Display result
+st.subheader("Prediction Result")
+st.write(f"**Prediction:** {prediction}")
+st.write(f"**Probability:** {prediction_prob:.2f}")
