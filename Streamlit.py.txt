@@ -1,0 +1,4 @@
+git mv app.py streamlit_app.py
+git add .
+git commit -m "Rename app.py to streamlit_app.py for Streamlit"
+git push
