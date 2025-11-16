@@ -1,0 +1,24 @@
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environment
+venv/
+env/
+
+# Keras / TensorFlow models
+*.h5
+*.hdf5
+
+# Scaler / Pickle files
+*.save
+
+# OS files
+.DS_Store
+Thumbs.db

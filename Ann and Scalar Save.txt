@@ -1,0 +1,15 @@
+
+---
+
+## **5️⃣ `ann_model.h5` and `scaler.save`**
+
+- These are **binary files**, so you cannot copy their content here.  
+- You must **save them from your trained model** as I showed before:
+
+```python
+# Save trained model
+model.save("ann_model.h5")
+
+# Save scaler
+import joblib
+joblib.dump(scaler, "scaler.save")
